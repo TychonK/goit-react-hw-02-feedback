@@ -1,12 +1,12 @@
-export function Statistics({good, neutral, bad, total, percentage}) {
+import './Statistics.scss'
+export function Statistics({ good, neutral, bad, total, percentage }) {
     return (
-        <div>
-            <h2>Statistics</h2>
+        <div className="stats-box">
             <span>Good: { good } </span>
             <span>Neutral: { neutral } </span>
             <span>Bad: {bad} </span>
             <span>Total: {total} </span>
-            <span>Positive Feedback: {percentage} %</span>
+            <span>Positive Feedback: {percentage}%</span>
         </div>
  )
 }

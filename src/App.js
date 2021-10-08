@@ -1,6 +1,9 @@
 import './App.scss';
 import { Component } from 'react';
-import {Statistics} from './components/Statistics/Statistics'
+import { Statistics } from './components/Statistics/Statistics'
+import { FeedbackOptions } from './components/FeedbackOptions/FeedbackOptions'
+import { Title } from './components/Title/Title'
+import {Notification} from './components/Notification/Notification'
 
 class App extends Component {
   state = {
@@ -36,13 +39,20 @@ handleIncrementNeutral = () => {
   render() {
     const total = this.state.bad + this.state.good + this.state.neutral;
     const percentage = Math.floor(this.state.good / total * 100);
+    let stats;
+    if (total === 0) {
+      stats = <Notification message="No feedback given" />
+    } else {
+      stats = <Statistics good={this.state.good} neutral={this.state.neutral} bad={this.state.bad} total={total} percentage={percentage} />
+    }
     return (
       <div className="App">
-        <h1>Please leave feedback</h1>
-        <button onClick={this.handleIncrementGood}>Good</button>
-        <button onClick={this.handleIncrementNeutral}>Neutral</button>
-        <button onClick={this.handleIncrementBad}>Bad</button>
-        <Statistics good={this.state.good} neutral={this.state.neutral} bad={ this.state.bad} total={total} percentage={percentage} />
+        <Title title="Please leave feedback">
+          <FeedbackOptions handleIncrementBad={ this.handleIncrementBad} handleIncrementGood={ this.handleIncrementGood} handleIncrementNeutral={ this.handleIncrementNeutral}/>
+        </Title>
+        <Title title="Statistics">
+          {stats}
+        </Title>  
       </div>
     )
   }
